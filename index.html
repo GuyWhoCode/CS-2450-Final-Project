@@ -10,10 +10,18 @@
         <h1>Dashboard</h1>
 
         <button onclick="initializeUser()">Initialize User</button>
-        <button onclick="{sessionStorage.clear(); location.reload()}">Clear Session Storage</button>
+        <button
+            onclick="
+                {
+                    sessionStorage.clear();
+                    location.reload();
+                }
+            "
+        >
+            Clear Session Storage
+        </button>
 
         <div id="userData">Nothing to show here!</div>
-
 
         <script defer>
             function initializeUser() {
@@ -36,21 +44,25 @@
                             priority: -1,
                         },
                     ],
-                    studyPlanInitialized: false
-                }
+                    studyPlanInitialized: false,
+                };
 
-                sessionStorage.setItem("currentUser", JSON.stringify(initialData));
+                sessionStorage.setItem(
+                    "currentUser",
+                    JSON.stringify(initialData),
+                );
 
-                location.reload()
+                location.reload();
             }
-            
-            function getUserData() { 
+
+            function getUserData() {
                 return JSON.parse(sessionStorage.getItem("currentUser"));
             }
-            
-            let currentUserData = getUserData() 
+
+            let currentUserData = getUserData();
             if (currentUserData) {
-                document.getElementById("userData").textContent = JSON.stringify(currentUserData)
+                document.getElementById("userData").textContent =
+                    JSON.stringify(currentUserData);
             }
         </script>
     </body>
