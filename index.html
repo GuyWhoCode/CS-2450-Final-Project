@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style></style>
+    </head>
+    <body>
+        <h1>Dashboard</h1>
+
+        <button onclick="initializeUser()">Initialize User</button>
+        <button onclick="{sessionStorage.clear(); location.reload()}">Clear Session Storage</button>
+
+        <div id="userData">Nothing to show here!</div>
+
+
+        <script defer>
+            function initializeUser() {
+                const initialData = {
+                    classes: ["Class 1", "Class 2", "Class 3"],
+                    exams: [
+                        {
+                            title: "Exam 1",
+                            date: "",
+                            priority: -1,
+                        },
+                        {
+                            title: "Exam 2",
+                            date: "",
+                            priority: -1,
+                        },
+                        {
+                            title: "Exam 3",
+                            date: "",
+                            priority: -1,
+                        },
+                    ],
+                    studyPlanInitialized: false
+                }
+
+                sessionStorage.setItem("currentUser", JSON.stringify(initialData));
+
+                location.reload()
+            }
+            
+            function getUserData() { 
+                return JSON.parse(sessionStorage.getItem("currentUser"));
+            }
+            
+            let currentUserData = getUserData() 
+            if (currentUserData) {
+                document.getElementById("userData").textContent = JSON.stringify(currentUserData)
+            }
+        </script>
+    </body>
+</html>
