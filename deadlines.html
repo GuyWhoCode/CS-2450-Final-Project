@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Deadlines</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: #f4f6f9;
+        }
+
+        .phone-page {
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+        }
+
+        .top-header {
+            background: linear-gradient(135deg, #4f46e5, #3b82f6);
+            color: white;
+            padding: 1rem;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6c757d;
+            margin-bottom: 0.75rem;
+        }
+
+        .exam-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .empty-text {
+            color: #6c757d;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-page shadow-sm">
+        <!-- Header -->
+        <div class="top-header">
+            <a href="index.html" class="btn btn-light btn-sm">Back</a>
+
+            <h1 class="h4 mt-3 mb-1">Exam Deadlines</h1>
+            <p class="mb-0 small opacity-75">
+                View upcoming exams grouped by due date
+            </p>
+        </div>
+
+        <!-- Content -->
+        <main class="p-3">
+            <!-- Within 1 Week -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="section-title">Within 1 Week</div>
+                    <ul class="list-group list-group-flush" id="weekList"></ul>
+                </div>
+            </div>
+
+            <!-- Within 2 Weeks -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="section-title">Within 2 Weeks</div>
+                    <ul class="list-group list-group-flush" id="twoWeekList"></ul>
+                </div>
+            </div>
+
+            <!-- Within 1 Month -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="section-title">Within 1 Month</div>
+                    <ul class="list-group list-group-flush" id="monthList"></ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sample hardcoded data (can replace later with user input)
+        const exams = [
+            { name: "Data Structures Midterm", days: 3 },
+            { name: "Cybersecurity Midterm", days: 6 },
+            { name: "Psychology Quiz", days: 5 },
+            { name: "Python Exam", days: 24 },
+            { name: "Psychology Final", days: 20 },
+        ];
+
+        const weekList = document.getElementById("weekList");
+        const twoWeekList = document.getElementById("twoWeekList");
+        const monthList = document.getElementById("monthList");
+
+        function createItem(exam) {
+            const li = document.createElement("li");
+            li.className =
+                "list-group-item d-flex justify-content-between align-items-center px-0";
+
+            li.innerHTML = `
+          <span class="fw-semibold">${exam.name}</span>
+          <span class="badge bg-primary">${exam.days}d</span>
+        `;
+
+            return li;
+        }
+
+        function emptyMessage() {
+            const li = document.createElement("li");
+            li.className = "list-group-item border-0 empty-text px-0";
+            li.textContent = "No exams in this range.";
+            return li;
+        }
+
+        function render() {
+            weekList.innerHTML = "";
+            twoWeekList.innerHTML = "";
+            monthList.innerHTML = "";
+
+            const week = exams
+                .filter((e) => e.days <= 7)
+                .sort((a, b) => a.days - b.days);
+
+            const twoWeeks = exams
+                .filter((e) => e.days > 7 && e.days <= 14)
+                .sort((a, b) => a.days - b.days);
+
+            const month = exams
+                .filter((e) => e.days > 14 && e.days <= 30)
+                .sort((a, b) => a.days - b.days);
+
+            if (week.length === 0) weekList.appendChild(emptyMessage());
+            else week.forEach((e) => weekList.appendChild(createItem(e)));
+
+            if (twoWeeks.length === 0) twoWeekList.appendChild(emptyMessage());
+            else twoWeeks.forEach((e) => twoWeekList.appendChild(createItem(e)));
+
+            if (month.length === 0) monthList.appendChild(emptyMessage());
+            else month.forEach((e) => monthList.appendChild(createItem(e)));
+        }
+
+        render();
+    </script>
+</body>
+
+</html>

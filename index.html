@@ -1,69 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <style></style>
-    </head>
-    <body>
-        <h1>Dashboard</h1>
 
-        <button onclick="initializeUser()">Initialize User</button>
-        <button
-            onclick="
-                {
-                    sessionStorage.clear();
-                    location.reload();
-                }
-            "
-        >
-            Clear Session Storage
-        </button>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
 
-        <div id="userData">Nothing to show here!</div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-        <script defer>
-            function initializeUser() {
-                const initialData = {
-                    classes: ["Class 1", "Class 2", "Class 3"],
-                    exams: [
-                        {
-                            title: "Exam 1",
-                            date: "",
-                            priority: -1,
-                        },
-                        {
-                            title: "Exam 2",
-                            date: "",
-                            priority: -1,
-                        },
-                        {
-                            title: "Exam 3",
-                            date: "",
-                            priority: -1,
-                        },
-                    ],
-                    studyPlanInitialized: false,
-                };
+    <style>
+        body {
+            background: #eef2f7;
+            font-family: Arial, sans-serif;
+        }
 
-                sessionStorage.setItem(
-                    "currentUser",
-                    JSON.stringify(initialData),
-                );
+        .mobile-app {
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #ffffff;
+        }
 
-                location.reload();
-            }
+        .hero-header {
+            padding: 1.25rem 1rem 1rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
 
-            function getUserData() {
-                return JSON.parse(sessionStorage.getItem("currentUser"));
-            }
+        .hero-header h1 {
+            margin: 0;
+            font-size: 1.9rem;
+            font-weight: 700;
+        }
 
-            let currentUserData = getUserData();
-            if (currentUserData) {
-                document.getElementById("userData").textContent =
-                    JSON.stringify(currentUserData);
-            }
-        </script>
-    </body>
+        .hero-header p {
+            margin: 0.4rem 0 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+
+        .summary-card {
+            border: 0;
+            border-radius: 1rem;
+        }
+
+        .priority-tile {
+            border-radius: 1rem;
+            padding: 1rem 0.75rem;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+        }
+
+        .priority-rank {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #2563eb;
+            background: #dbeafe;
+            padding: 0.25rem 0.55rem;
+            border-radius: 999px;
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1f2937;
+        }
+
+        .deadline-item-title {
+            font-weight: 600;
+        }
+
+        .deadline-item-subtext {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile-app shadow-sm">
+        <header class="hero-header">
+            <h1>Dashboard</h1>
+            <p>Track your classes and upcoming exams</p>
+        </header>
+
+        <main class="p-3">
+            <section class="mb-4">
+                <div class="section-label">Most Urgent Deadline</div>
+
+                <div class="card summary-card shadow-sm">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush" id="urgentDeadlineList"></ul>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="deadlines.html" class="btn btn-primary btn-lg">
+                                View All Deadlines
+                            </a>
+                            <a href="./studyplan.html" class="btn btn-outline-primary btn-lg">
+                                Generate a Study Plan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <div class="section-label mb-2">Class Priorities</div>
+
+                <div class="row g-3" id="priorityClassGrid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const exams = [
+            { name: "Data Structures and Algorithms Midterm", days: 3 },
+            { name: "Psychology Quiz", days: 5 },
+            { name: "Cybersecurity Midterm", days: 6 },
+            { name: "Python Exam", days: 24 },
+            { name: "Psychology Final", days: 20 }
+        ];
+
+        const classPriorities = [
+            { className: "Data Structures", priority: 1 },
+            { className: "Cybersecurity", priority: 2 },
+            { className: "Psychology", priority: 3 },
+            { className: "Python", priority: 4 }
+        ];
+
+        const urgentDeadlineList = document.getElementById("urgentDeadlineList");
+        const priorityClassGrid = document.getElementById("priorityClassGrid");
+
+        function createUrgentDeadlineItem(exam) {
+            const li = document.createElement("li");
+            li.className = "list-group-item px-0 d-flex justify-content-between align-items-start";
+
+            li.innerHTML = `
+          <div class="me-3">
+            <div class="deadline-item-title">${exam.name}</div>
+            <div class="deadline-item-subtext">Due in ${exam.days} day${exam.days === 1 ? "" : "s"}</div>
+          </div>
+          <span class="badge bg-danger rounded-pill">${exam.days}d</span>
+        `;
+
+            return li;
+        }
+
+        function createPriorityCard(item) {
+            const col = document.createElement("div");
+            col.className = "col-6";
+
+            col.innerHTML = `
+          <div class="priority-tile shadow-sm">
+            <div class="priority-rank">Priority #${item.priority}</div>
+            <div class="priority-name">${item.className}</div>
+          </div>
+        `;
+
+            return col;
+        }
+
+        function renderUrgentDeadlines() {
+                urgentDeadlineList.innerHTML = "";
+
+                const closestDeadlines = [...exams]
+                    .sort((a, b) => a.days - b.days)
+                    .slice(0, 3);
+
+                closestDeadlines.forEach((exam) => {
+                    urgentDeadlineList.appendChild(createUrgentDeadlineItem(exam));
+                });
+        }
+
+        function renderPriorityClasses() {
+            priorityClassGrid.innerHTML = "";
+
+            const sortedClasses = [...classPriorities].sort(
+                (a, b) => a.priority - b.priority
+            );
+
+            sortedClasses.forEach((item) => {
+                priorityClassGrid.appendChild(createPriorityCard(item));
+            });
+        }
+
+        renderUrgentDeadlines();
+        renderPriorityClasses();
+    </script>
+</body>
+
 </html>
