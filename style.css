@@ -1,0 +1,172 @@
+/* ── Brand colors ── */
+.navbar-examtrack {
+    background-color: #5c3b8c;
+}
+
+.btn-purple {
+    background-color: #5c3b8c;
+    color: #fff;
+    border: none;
+}
+
+.btn-purple:hover {
+    background-color: #4a2e73;
+    color: #fff;
+}
+
+.text-purple {
+    color: #5c3b8c !important;
+}
+
+/* ── Hero banner ── */
+.hero-banner {
+    background: linear-gradient(135deg, #5c3b8c 0%, #7b52b9 100%);
+    min-height: calc(100vh - 62px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-sub {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 420px;
+    margin: 0 auto 1.5rem;
+}
+
+.hero-btn {
+    color: #5c3b8c;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Form views ── */
+.form-view {
+    max-width: 500px;
+}
+
+.back-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.back-link:hover {
+    color: #5c3b8c;
+    text-decoration: underline;
+}
+
+.form-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(92, 59, 140, 0.08);
+}
+
+/* ── Step indicator ── */
+.step-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.step-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #adb5bd;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.step-dot.active {
+    background: #5c3b8c;
+    color: #fff;
+}
+
+.step-dot.done {
+    background: #198754;
+    color: #fff;
+}
+
+.step-line {
+    flex: 1;
+    height: 3px;
+    background: #e9ecef;
+    margin: 0 6px;
+}
+
+.step-line.active {
+    background: #5c3b8c;
+}
+
+/* ── Loading screen ── */
+.loading-screen {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.spinner-border-lg {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3em;
+}
+
+/* ── Output schedule cards ── */
+.plan-day-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.plan-day-header {
+    background: #5c3b8c;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.plan-day-body {
+    padding: 0.6rem 1rem;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.plan-day-body.rest {
+    background: #f8f9fa;
+}
+
+.plan-hours-badge {
+    background: #ede9fe;
+    color: #5c3b8c;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
