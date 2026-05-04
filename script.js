@@ -184,6 +184,7 @@ let userExams = [
 ];
 
 function addClassExam() {
+    console.log("BUTTON CLICKED");
     const className = document.getElementById("class-name").value.trim();
     const examName = document.getElementById("exam-name").value.trim();
     const date = document.getElementById("exam-date").value;
