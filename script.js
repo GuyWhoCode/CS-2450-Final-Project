@@ -1,5 +1,4 @@
 const VIEWS = [
-    "view-dashboard",
     "view-plan-step1",
     "view-plan-step2",
     "view-plan-loading",
@@ -162,4 +161,4 @@ function generateAndRenderPlan() {
         .join("");
 }
 
-document.addEventListener("DOMContentLoaded", () => showView("view-dashboard"));
+document.addEventListener("DOMContentLoaded", () => showView("view-plan-step1"));
