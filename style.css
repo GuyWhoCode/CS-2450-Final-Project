@@ -170,3 +170,63 @@
     white-space: nowrap;
     flex-shrink: 0;
 }
+
+/* ── Dashboard ── */
+.dashboard-hero {
+    background: linear-gradient(135deg, #5c3b8c 0%, #7b52b9 100%);
+}
+
+.dashboard-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(92, 59, 140, 0.08);
+}
+
+.exam-card {
+    border: 1px solid #e5e7eb;
+    border-left: 6px solid #5c3b8c;
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    background: #fff;
+}
+
+.exam-title {
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.exam-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.empty-state {
+    text-align: center;
+    color: #6c757d;
+    padding: 2rem 1rem;
+    background: #f8f9fa;
+    border-radius: 14px;
+}
+
+.priority-high {
+    border-left-color: #dc3545;
+}
+
+.priority-medium {
+    border-left-color: #ffc107;
+}
+
+.priority-low {
+    border-left-color: #198754;
+}
+
+.delete-btn {
+    border: none;
+    background: transparent;
+    color: #dc3545;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
