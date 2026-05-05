@@ -5,13 +5,6 @@ const VIEWS = [
     "view-plan-output",
 ];
 
-function showView(id) {
-    VIEWS.forEach((v) => (document.getElementById(v).style.display = "none"));
-    document.getElementById(id).style.display = "block";
-    window.scrollTo(0, 0);
-    if (id === "view-plan-step1") restoreStep1();
-}
-
 const DAYS = [
     "Monday",
     "Tuesday",
@@ -55,6 +48,54 @@ const EXAMS = [
     },
 ];
 
+const PRIORITY_COLOR = {
+    high: "danger",
+    medium: "warning",
+    low: "success",
+};
+
+
+
+function showView(id) {
+    VIEWS.forEach((v) => (document.getElementById(v).style.display = "none"));
+    document.getElementById(id).style.display = "block";
+    window.scrollTo(0, 0);
+    if (id === "view-plan-step1") restoreStep1();
+}
+
+function daysUntil(dateStr) {
+    const today = new Date();
+    const examDate = new Date(dateStr);
+    today.setHours(0, 0, 0, 0);
+    examDate.setHours(0, 0, 0, 0);
+
+    const diff = examDate - today;
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+function formatDashboardDate(dateStr) {
+    const [year, month, day] = dateStr.split("-").map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
+}
+
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+function formatDate(dateStr) {
+    const [year, month, day] = dateStr.split("-").map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+    });
+}
+
+
+
 function restoreStep1() {
     const saved = sessionStorage.getItem("studyHours");
     if (saved) document.getElementById("input-study-hours").value = saved;
@@ -96,20 +137,6 @@ function submitStep2() {
         generateAndRenderPlan();
         showView("view-plan-output");
     }, 1500);
-}
-
-const PRIORITY_COLOR = {
-    high: "danger",
-    medium: "warning",
-    low: "success",
-};
-
-function formatDate(dateStr) {
-    const [year, month, day] = dateStr.split("-").map(Number);
-    return new Date(year, month - 1, day).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-    });
 }
 
 function generateAndRenderPlan() {
@@ -286,29 +313,6 @@ function renderDashboard() {
             })
             .join("");
     }
-}
-
-function daysUntil(dateStr) {
-    const today = new Date();
-    const examDate = new Date(dateStr);
-    today.setHours(0, 0, 0, 0);
-    examDate.setHours(0, 0, 0, 0);
-
-    const diff = examDate - today;
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
-
-function formatDashboardDate(dateStr) {
-    const [year, month, day] = dateStr.split("-").map(Number);
-    return new Date(year, month - 1, day).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-    });
-}
-
-function capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
