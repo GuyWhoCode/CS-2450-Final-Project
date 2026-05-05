@@ -37,7 +37,7 @@
                         <div class="col-md-6">
                             <input
                                 type="text"
-                                id="classInput"
+                                id="class-name"
                                 list="classOptions"
                                 class="form-control"
                                 placeholder="Class name (e.g. CS301)"
@@ -77,6 +77,13 @@
                         onclick="addClassExam()"
                     >
                         Add Exam
+                    </button>
+                    <button
+                        class="btn btn-purple mt-3"
+                        id="resetBtn"
+                        onclick="sessionStorage.clear();"
+                    >
+                        Reset Session Data
                     </button>
                 </div>
 
