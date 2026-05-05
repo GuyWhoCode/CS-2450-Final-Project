@@ -17,32 +17,32 @@ const DAYS = [
 
 const EXAMS = [
     {
-        title: "Data Structures Midterm",
-        course: "CS301",
+        examName: "Data Structures Midterm",
+        className: "CS301",
         date: "2026-05-07",
         priority: "high",
     },
     {
-        title: "Psychology Quiz",
-        course: "PSY101",
+        examName: "Psychology Quiz",
+        className: "PSY101",
         date: "2026-05-08",
         priority: "medium",
     },
     {
-        title: "Cybersecurity Midterm",
-        course: "CS350",
+        examName: "Cybersecurity Midterm",
+        className: "CS350",
         date: "2026-05-09",
         priority: "high",
     },
     {
-        title: "Psychology Final",
-        course: "PSY101",
+        examName: "Psychology Final",
+        className: "PSY101",
         date: "2026-05-20",
         priority: "low",
     },
     {
-        title: "Python Exam",
-        course: "CS150",
+        examName: "Python Exam",
+        className: "CS150",
         date: "2026-05-22",
         priority: "medium",
     },
@@ -148,9 +148,9 @@ function generateAndRenderPlan() {
                    </div>`
                 : `<div class="plan-day-body">
                        <div>
-                           <strong>${item.exam.title}</strong>
+                           <strong>${item.exam.examName}</strong>
                            <div class="mt-1">
-                               <span class="badge bg-secondary me-1">${item.exam.course}</span>
+                               <span class="badge bg-secondary me-1">${item.exam.className}</span>
                                <span class="badge bg-${PRIORITY_COLOR[item.exam.priority]}-subtle text-${PRIORITY_COLOR[item.exam.priority]}-emphasis me-1">
                                    ${item.exam.priority} priority
                                </span>
