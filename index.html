@@ -24,7 +24,7 @@
                 </p>
                 <button
                     class="btn btn-light btn-lg px-5 fw-semibold hero-btn"
-                    onclick="window.location.href='./study-plan/index.html'"
+                    onclick="window.location.href = './study-plan/index.html'"
                 >
                     Generate Study Plan
                 </button>
@@ -36,11 +36,14 @@
                     <div class="row g-2">
                         <div class="col-md-6">
                             <input
-                                id="class-name"
                                 type="text"
+                                id="classInput"
+                                list="classOptions"
                                 class="form-control"
                                 placeholder="Class name (e.g. CS301)"
                             />
+
+                            <datalist id="classOptions"></datalist>
                         </div>
                         <div class="col-md-6">
                             <input
@@ -65,13 +68,21 @@
                             </select>
                         </div>
                     </div>
-                    <div id="class-error" class="invalid-feedback d-block mt-1"></div>
-                    <button class="btn btn-purple mt-3" onclick="addClassExam()">
+                    <div
+                        id="class-error"
+                        class="invalid-feedback d-block mt-1"
+                    ></div>
+                    <button
+                        class="btn btn-purple mt-3"
+                        onclick="addClassExam()"
+                    >
                         Add Exam
                     </button>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-2">
+                <div
+                    class="d-flex justify-content-between align-items-center mb-2"
+                >
                     <h6 class="fw-bold mb-0">
                         All Exams (<span id="exam-count">0 exams</span>)
                     </h6>

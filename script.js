@@ -1,4 +1,4 @@
-let userExams = [
+const userExams = [
     {
         className: "Data Structures",
         examName: "Midterm",
@@ -18,6 +18,11 @@ let userExams = [
         priority: "high",
     },
 ];
+
+const STORAGE_KEY = "sessionClassNames";
+const input = document.getElementById("classInput");
+const datalist = document.getElementById("classOptions");
+const resetBtn = document.getElementById("resetBtn");
 
 function formatDashboardDate(dateStr) {
     const [year, month, day] = dateStr.split("-").map(Number);
@@ -148,6 +153,42 @@ function renderDashboard() {
     }
 }
 
+function loadClassNames() {
+    const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "[]");
+
+    return [...new Set([...userExams.map((e) => e.className), ...saved])];
+}
+
+let classNames = loadClassNames();
+
+function saveClassNames() {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(classNames));
+}
+
+function renderOptions() {
+    datalist.innerHTML = "";
+
+    classNames.forEach((name) => {
+        const option = document.createElement("option");
+        option.value = name;
+        datalist.appendChild(option);
+    });
+}
+
+// Add new value on Enter
+input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        const value = input.value.trim();
+
+        if (value && !classNames.includes(value)) {
+            classNames.push(value);
+            saveClassNames();
+            renderOptions();
+        }
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     renderDashboard();
+    renderOptions();
 });
